@@ -1,14 +1,13 @@
 package com.restaurant.controllers;
 
 
+import com.restaurant.models.Orders;
 import com.restaurant.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class OrderController {
@@ -27,5 +26,15 @@ public class OrderController {
                 orderReposiory.findAll(),
                 HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @RequestMapping(path ="/order/save", method = RequestMethod.POST)
+
+    public ResponseEntity<?> saveOrder(@RequestBody Orders order){
+        return new ResponseEntity<Orders>(
+                orderReposiory.save(order),
+                HttpStatus.CREATED);
+    }
+
 
 }
